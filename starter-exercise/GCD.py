@@ -34,7 +34,7 @@ def gcd_naive(numbers):
 
     
 print('''GCD Calculator
-Enter two numbers separated by a space''')
+Enter two numbers (both not ZERO) separated by a space''')
 n = input().split()
 numbers = []
 for i in range(2):
