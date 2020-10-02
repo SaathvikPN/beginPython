@@ -10,8 +10,9 @@ def MaxPairwiseProduct(list):
     for i in range(0,len(list)):
         if list[i]>big1:
             big1 = list[i]
+            n = i
     for i in range(0,len(list)):
-         if ((list[i]!=big1) and (list[i]>big2)):
+         if ((i!=n) and (list[i]>big2)):
              big2 = list[i]
     return (big1*big2)
 
