@@ -5,9 +5,9 @@ import sys
 def get_opt_value(capacity,values,weights):
     value = 0
     value_per_weight = []
-    length = len(weights) 
+    length = len(weights) #Memory Optimisable
     for i in range(length):
-        x = values[i]/weights[i]
+        x = values[i]/weights[i] #Memory Optimisable
         value_per_weight.append(x)
     while(capacity!=0):
         chooseIndex = value_per_weight.index(max(value_per_weight))
