@@ -38,26 +38,25 @@ def minRefills(distance,tank,stops,refills):
 
     #comparing immediate next stop
     if (tank<(stops[i]-stops[0])):
-       return -1
+        print("Oops!. Next-stop is NOT in refill-range")
+        return -1
 
     
     else:
-
-        #if the nextStop==carTankRange
-        if (tank==(stops[i]-stops[0])):
-            fillTank = stops[i]
-            fillIndex = i
-            refill = refills + 1 #(currentRefill number) = (alreadyRefilled no.)+1
-            
-        else:
-
-            #Iterating until last stop within car Range
-            while(tank>(stops[i]-stops[0])):
+        #Iterating until last stop within or equal to car Range
+        while(tank>(stops[i]-stops[0])or(tank==(stops[i]-stops[0]))):
+            if (tank==(stops[i]-stops[0])):
                 fillTank = stops[i]
                 fillIndex = i
-                i = i+1
-                refill = refills + 1 #(currentRefill number) = (alreadyRefilled no.)+1
-                
+                refill = refills + 1
+                break
+            
+            fillTank = stops[i]
+            fillIndex = i
+            i = i+1  #check if any next stop available
+            
+            refill = refills + 1 #(currentRefill number) = (alreadyRefilled no.)+1
+        print(f"Refilling {refill}th time at {fillTank}") 
         #Preparing list for subproblem similar to original problem
         del stops[0:fillIndex]
 
@@ -65,9 +64,11 @@ def minRefills(distance,tank,stops,refills):
         #If destination within range, this is the Last refill
         if((distance-stops[0])<tank):
             refill = refills + 1
+            print(f"{refill} is the last refill because destination in range!")
 
         #Cannot reach destination. Another refill needed
         else:
+            print("going for another refill")
             refill = minRefills(distance,tank,stops,refill)
             
         #return current refill number
@@ -80,6 +81,7 @@ n = int(input()) #No. stops (unused in this program)
 stops = list(map(int,input().split()))
 stops.insert(0,0)
 stops.append(d)
-print(stops) #List including starting 0 and destination distance for calculation
+print("Checkpoints",stops) #List including starting 0 and destination distance for calculation
+print("car Range = ",m)
 refills = 0
 print("Refills {}".format(minRefills(d,m,stops,refills)))
