@@ -32,24 +32,33 @@ Output:
 To achieve the value 180, we take the first item and the third item into the bag.
 
 '''
-import sys
+
+
 def get_opt_value(capacity,values,weights):
     value = 0
     value_per_weight = []
-    length = len(weights) #Memory Optimisable
-    for i in range(length):
-        x = values[i]/weights[i] #Memory Optimisable
-        value_per_weight.append(x)
-    while(capacity!=0):
+
+    for i in range(len(weights)):
+        value_per_weight.append(values[i]/weights[i])
+
+    print('Value-per-kg of item',value_per_weight)
+        
+    while((capacity!=0)and(len(value_per_weight)!=0)):        
         chooseIndex = value_per_weight.index(max(value_per_weight))
+        
         putWeight = weights[chooseIndex]
         if(putWeight>capacity):
             excess = putWeight - capacity
             putWeight = putWeight - excess
+            print(f"From {weights[chooseIndex]}kgs' pack --> took {putWeight} kgs")
+            
             value = putWeight*value_per_weight[chooseIndex]
             return value
         else:
             capacity = capacity - putWeight
+
+            print(f"From {weights[chooseIndex]}kgs' pack --> took {putWeight} kgs")
+            
             value = value + (putWeight*value_per_weight[chooseIndex])
             del value_per_weight[chooseIndex]
             del weights[chooseIndex]
@@ -63,12 +72,12 @@ if __name__ == "__main__":
     for line in range(data[0]):
         userData = list(map(int,input().split()))
         data = data + userData
-        
-    print("Data",data)
+    print("data",data)
     n,capacity = data[0:2]
+    print("Knapsack capacity =",capacity)
     values = data[2:(2*n)+2:2] #last element in range not considered
     weights = data[3:(2*n)+3:2]
-    print("values",values)
-    print("weights",weights)
+    print("Values",values)
+    print("Weights",weights)
     opt_value = get_opt_value(capacity,values,weights)
-    print("{:.4f}".format(opt_value))
+    print(f"Optimum Value {opt_value:.4f}")
