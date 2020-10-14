@@ -4,6 +4,11 @@ print("x,y",x,y)
 #swapping
 x,y = y,x
 
+#Equivalent to
+# temp = y
+# y = x
+# x = temp
+
 print("x,y",x,y)
 
 '''
